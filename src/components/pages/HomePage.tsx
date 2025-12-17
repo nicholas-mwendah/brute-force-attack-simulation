@@ -139,40 +139,52 @@ export default function HomePage() {
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
     let attemptCount = 0;
     
-    for (let length = 1; length <= 8; length++) {
-      const maxCombinations = Math.pow(charset.length, length);
-      const combinations = Math.min(maxCombinations, max - attemptCount);
+    // Helper function to generate the nth password
+    const generatePassword = (index: number): string => {
+      let result = '';
+      let num = index;
+      let length = 1;
+      let offset = 0;
       
-      for (let i = 0; i < combinations; i++) {
-        if (attemptCount >= max) break;
-        
-        attemptCount++;
-        setCurrentAttempt(attemptCount);
-        
-        let attempt = '';
-        let num = i;
-        for (let j = 0; j < length; j++) {
-          attempt += charset[num % charset.length];
-          num = Math.floor(num / charset.length);
-        }
-        
-        if (i % 100 === 0) {
-          await new Promise(resolve => setTimeout(resolve, 1));
-        }
-        
-        const compareValue = isHashed ? simpleHash(attempt) : attempt;
-        
-        if (compareValue === target) {
-          return {
-            cracked: true,
-            matchedPassword: attempt,
-            attempts: attemptCount,
-            timeElapsed: Date.now() - startTime
-          };
-        }
+      // Find which length group this index falls into
+      let totalBefore = 0;
+      while (totalBefore + Math.pow(charset.length, length) <= num) {
+        totalBefore += Math.pow(charset.length, length);
+        length++;
       }
       
-      if (attemptCount >= max) break;
+      // Get position within this length group
+      num -= totalBefore;
+      
+      // Generate password of this length
+      for (let i = 0; i < length; i++) {
+        result = charset[num % charset.length] + result;
+        num = Math.floor(num / charset.length);
+      }
+      
+      return result;
+    };
+    
+    while (attemptCount < max) {
+      attemptCount++;
+      setCurrentAttempt(attemptCount);
+      
+      const attempt = generatePassword(attemptCount - 1);
+      
+      if (attemptCount % 100 === 0) {
+        await new Promise(resolve => setTimeout(resolve, 1));
+      }
+      
+      const compareValue = isHashed ? simpleHash(attempt) : attempt;
+      
+      if (compareValue === target) {
+        return {
+          cracked: true,
+          matchedPassword: attempt,
+          attempts: attemptCount,
+          timeElapsed: Date.now() - startTime
+        };
+      }
     }
     
     return {
