@@ -45,6 +45,7 @@ A modern, full-featured Wix Astro template built with React, TypeScript, and Tai
    ```bash
    npm run install-template
    ```
+krak https://my-site-ovzwwtqa-nicholasmwenda.wix-vibe.com
 
 2. **Set up environment variables**:
    ```bash
