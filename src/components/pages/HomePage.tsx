@@ -137,15 +137,17 @@ export default function HomePage() {
     const startTime = Date.now();
     const isHashed = passwordType === 'hashed';
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+    let attemptCount = 0;
     
     for (let length = 1; length <= 8; length++) {
       const maxCombinations = Math.pow(charset.length, length);
-      const combinations = Math.min(maxCombinations, max - currentAttempt);
+      const combinations = Math.min(maxCombinations, max - attemptCount);
       
       for (let i = 0; i < combinations; i++) {
-        if (currentAttempt >= max) break;
+        if (attemptCount >= max) break;
         
-        setCurrentAttempt(prev => prev + 1);
+        attemptCount++;
+        setCurrentAttempt(attemptCount);
         
         let attempt = '';
         let num = i;
@@ -164,18 +166,18 @@ export default function HomePage() {
           return {
             cracked: true,
             matchedPassword: attempt,
-            attempts: currentAttempt,
+            attempts: attemptCount,
             timeElapsed: Date.now() - startTime
           };
         }
       }
       
-      if (currentAttempt >= max) break;
+      if (attemptCount >= max) break;
     }
     
     return {
       cracked: false,
-      attempts: currentAttempt,
+      attempts: attemptCount,
       timeElapsed: Date.now() - startTime
     };
   };
