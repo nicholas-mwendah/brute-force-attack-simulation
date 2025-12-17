@@ -14,18 +14,18 @@ export default function Header() {
           </Link>
           
           <nav className="flex items-center gap-8">
-            <a 
-              href="#configure" 
+            <Link 
+              to="/" 
               className="font-paragraph text-base text-foreground hover:underline transition-all"
             >
               Simulation
-            </a>
-            <a 
-              href="#learn" 
+            </Link>
+            <Link 
+              to="/learning" 
               className="font-paragraph text-base text-foreground hover:underline transition-all"
             >
               Learn
-            </a>
+            </Link>
           </nav>
         </div>
       </div>

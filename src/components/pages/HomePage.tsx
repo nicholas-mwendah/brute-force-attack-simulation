@@ -284,7 +284,7 @@ export default function HomePage() {
                     Secure Enclave
                   </div>
                   <Image
-                    src="https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=cyber-lock-visual"
+                    src="https://static.wixstatic.com/media/cac9fe_5064c9ee89db4865b316fa05636be03f~mv2.png?originWidth=384&originHeight=512"
                     alt="Abstract visualization of digital security lock mechanism"
                     className="w-full h-full object-cover grayscale contrast-125 hover:grayscale-0 transition-all duration-700"
                   />
@@ -643,7 +643,7 @@ export default function HomePage() {
       {/* --- VISUAL BREAK --- */}
       <section className="w-full h-[60vh] relative overflow-hidden">
         <Image
-          src="https://static.wixstatic.com/media/12d367_71ebdd7141d041e4be3d91d80d4578dd~mv2.png?id=cyber-network-bg"
+          src="https://static.wixstatic.com/media/cac9fe_c314ba28df6e45dba849eeb83f5458b4~mv2.png?originWidth=1152&originHeight=576"
           alt="Abstract network visualization"
           className="w-full h-full object-cover"
         />
