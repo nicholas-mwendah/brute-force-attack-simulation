@@ -137,39 +137,42 @@ export default function HomePage() {
     const startTime = Date.now();
     const isHashed = passwordType === 'hashed';
     const charset = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*';
+    const charsetLen = charset.length;
     let attemptCount = 0;
     
-    // Helper function to generate the nth password
+    // Helper function to generate the nth password (0-indexed)
     const generatePassword = (index: number): string => {
       let result = '';
       let num = index;
-      let length = 1;
-      let offset = 0;
       
       // Find which length group this index falls into
+      let length = 1;
       let totalBefore = 0;
-      while (totalBefore + Math.pow(charset.length, length) <= num) {
-        totalBefore += Math.pow(charset.length, length);
+      
+      while (true) {
+        const combosInThisLength = Math.pow(charsetLen, length);
+        if (totalBefore + combosInThisLength > num) {
+          // Found the right length group
+          num -= totalBefore;
+          break;
+        }
+        totalBefore += combosInThisLength;
         length++;
       }
       
-      // Get position within this length group
-      num -= totalBefore;
-      
-      // Generate password of this length
+      // Generate password of this length by converting num to base-charsetLen
       for (let i = 0; i < length; i++) {
-        result = charset[num % charset.length] + result;
-        num = Math.floor(num / charset.length);
+        result = charset[num % charsetLen] + result;
+        num = Math.floor(num / charsetLen);
       }
       
       return result;
     };
     
     while (attemptCount < max) {
+      const attempt = generatePassword(attemptCount);
       attemptCount++;
       setCurrentAttempt(attemptCount);
-      
-      const attempt = generatePassword(attemptCount - 1);
       
       if (attemptCount % 100 === 0) {
         await new Promise(resolve => setTimeout(resolve, 1));
