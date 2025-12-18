@@ -15,7 +15,7 @@ A modern, full-featured Wix Astro template built with React, TypeScript, and Tai
 - **Client-side Routing** - React Router for seamless navigation
 - **Responsive Design** - Mobile-first responsive design
 - **Testing** - Vitest testing framework setup
-- **Development Tools** - ESLint, TypeScript checking, and more(https://my-site-ovzwwtqa-nicholasmwenda.wix-vibe.com)
+- **Development Tools** - ESLint, TypeScript checking, and more
 
 ## 🛠️ Tech Stack
 

@@ -571,10 +571,7 @@ export default function LearningPage() {
                       </div>
 
                       <Button
-                        onClick={() => {
-                          setCurrentCourseId(course.id);
-                          setCurrentLessonId(course.lessons[0].id);
-                        }}
+                        onClick={() => setCurrentCourseId(course.id)}
                         className="w-full bg-foreground text-background hover:bg-foreground/90 font-heading text-sm uppercase py-4"
                       >
                         {isCourseDone ? '✓ Review Course' : 'Start Course'}
